@@ -16,7 +16,9 @@ class GroupPlaylistShuffler {
             textFiles[i] = args[i];
         }
     } else {
-        // File names can alternatively be hardcoded here
+        /* File names can alternatively be hardcoded here.
+        Will throw a divide-by-0 exception if no args or elements are provided
+        */
         textFiles = new string[] {
             
         };
