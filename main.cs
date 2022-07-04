@@ -8,8 +8,8 @@ class GroupPlaylistShuffler {
     // Files containing a list of x songs
     string[] textFiles;
     
-    // Read command line arguments for file names
     if(args.Length > 0) {
+        // Read command line arguments for file names
         textFiles = new string[args.Length];
         
         for(int i = 0; i < args.Length; i++) {
