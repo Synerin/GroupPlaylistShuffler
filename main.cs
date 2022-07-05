@@ -47,6 +47,9 @@ class GroupPlaylistShuffler {
         Console.WriteLine(song);
     }
     
+    /* For translating into an actual playlist,
+    I recommend https://www.tunemymusic.com/
+    */
     string newFile = "Playlist.txt";
     
     // Create or overwrite Playlist.txt as needed, add all songs
