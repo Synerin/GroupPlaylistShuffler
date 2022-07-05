@@ -9,7 +9,7 @@ Native shuffling is unpreserved shuffling. Suppose you begin playing the playlis
 Shuffling is equal to the extent that any song has a equal opportunity to appear at a given index. However, with multiple users, it becomes more likely that a given user will have to wait longer for any of their songs to appear. The method employed here makes it so that each user has to wait at most 2 * (N - 1) songs between their own, where N is the total number of users. Furthermore, a given user can have **at most** two songs played consecutively.
 
 ### What are the limitations of this tool?
-Currently, this tool only supports cases where each provided file has an equal number of songs listed. Discrepencies will return an error. This is something that may be resolved in the future.
+Currently, this tool only supports cases where each provided file (representing a user's individual playlist) has an equal number of songs listed. Discrepencies will return an error. This is something that may be resolved in the future.
 
 ### What is the Fisher-Yates shuffle?
 The Fisher-Yates shuffle, also known as the Knuth shuffle, is an algorithm able to produce every permutation of provided input with equal probability. Originally with a time complexity of O(n<sup>2</sup>), the method provided in main.cs is the modern algorithm, with time complexity of O(n). This method was introduced by Richard Durstenfeld in 1964, and is as follows:
