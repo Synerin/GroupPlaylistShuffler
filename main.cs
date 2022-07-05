@@ -39,7 +39,7 @@ class GroupPlaylistShuffler {
     // Distribute songs evenly in ABC...ABC... order
     string[] distributedPlaylist = DistributePlaylist(playlist, textFiles.Length);
     
-    // Shuffle the distributed songs for random equality
+    // Shuffle each distributed grouping of N songs for random equality
     string[] finalPlaylist = ShufflePlaylist(distributedPlaylist, textFiles.Length);
     
     // Print finalized playlist to console for confirmation
