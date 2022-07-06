@@ -71,16 +71,16 @@ class GroupPlaylistShuffler {
   }
   
   /// <summary>
-  /// Randomly reorder given string array based on Fisher-Yates shuffle
+  /// Randomly reorder given generic array based on Fisher-Yates shuffle
   /// </summary>
   /// <returns>
-  /// A shuffled string array
+  /// A shuffled array
   /// </returns>
   /// <param name="input">
-  /// A string array where each element is a song
+  /// A generic array
   /// </param>
-  public static string[] Shuffle(string[] input) {
-      string[] output = input;
+  public static T[] Shuffle<T>(T[] input) {
+      T[] output = input;
       
       int n = input.Length;
       Random rand = new Random();
@@ -89,7 +89,7 @@ class GroupPlaylistShuffler {
           int k = rand.Next(n--);
           
           // Cannot use tuple assignment for Random, must assign a temp variable
-          string temp = output[n];
+          T temp = output[n];
           output[n] = output[k];
           output[k] = temp;
       }
