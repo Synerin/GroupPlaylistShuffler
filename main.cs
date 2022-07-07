@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 class GroupPlaylistShuffler {
   static void Main(string[] args) {
+    // Keep track of most songs in one file
+    int max = 0;
     
     // Files containing a list of x songs
     string[] textFiles;
@@ -34,6 +36,8 @@ class GroupPlaylistShuffler {
         foreach(string song in shuffled) {
             playlist.Add(song);
         }
+        
+        max = Math.Max(max, songs.Length); // Calculate max
     }
     
     // Distribute songs evenly in ABC...ABC... order
@@ -53,8 +57,7 @@ class GroupPlaylistShuffler {
     string newFile = "Playlist.txt";
     
     // Create or overwrite Playlist.txt as needed, add all songs
-    File.WriteAllText(newFile, "");
-    File.AppendAllLines(newFile, finalPlaylist);
+    File.WriteAllLines(newFile, finalPlaylist);
   }
   
   /// <summary>
@@ -71,16 +74,16 @@ class GroupPlaylistShuffler {
   }
   
   /// <summary>
-  /// Randomly reorder given string array based on Fisher-Yates shuffle
+  /// Randomly reorder given generic array based on Fisher-Yates shuffle
   /// </summary>
   /// <returns>
-  /// A shuffled string array
+  /// A shuffled array
   /// </returns>
   /// <param name="input">
-  /// A string array where each element is a song
+  /// A generic array
   /// </param>
-  public static string[] Shuffle(string[] input) {
-      string[] output = input;
+  public static T[] Shuffle<T>(T[] input) {
+      T[] output = input;
       
       int n = input.Length;
       Random rand = new Random();
@@ -89,7 +92,7 @@ class GroupPlaylistShuffler {
           int k = rand.Next(n--);
           
           // Cannot use tuple assignment for Random, must assign a temp variable
-          string temp = output[n];
+          T temp = output[n];
           output[n] = output[k];
           output[k] = temp;
       }
@@ -100,9 +103,6 @@ class GroupPlaylistShuffler {
   /// <summary>
   /// Distribute songs from each user in ABC...ABC... order
   /// </summary>
-  /// <remarks>
-  /// Number of songs from each user must be equal, may be adjusted later
-  /// </remarks>
   /// <returns>
   /// A string array of songs evenly distributed between all users
   /// </returns>
@@ -113,14 +113,6 @@ class GroupPlaylistShuffler {
   /// The number of files provided in main()
   /// </param>
   public static string[] DistributePlaylist(List<string> input, int totalUsers) {
-      /* Quick check to see if each user has an equal number of songs,
-      not a guaranteed method though, to be adjusted later
-      */
-      if(input.Count % totalUsers != 0) {
-          Console.WriteLine("Unequal number of songs between users provided.");
-          return null;
-      }
-      
       int totalSongs = input.Count;
       int songsPerUser = totalSongs / totalUsers;
       
