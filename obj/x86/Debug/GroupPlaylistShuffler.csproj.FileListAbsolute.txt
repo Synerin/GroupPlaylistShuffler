@@ -1,8 +1,0 @@
-C:\Users\jason\Source\Repos\GroupPlaylistShuffler\bin\Debug\ConsoleApplication.exe.config
-C:\Users\jason\Source\Repos\GroupPlaylistShuffler\bin\Debug\ConsoleApplication.exe
-C:\Users\jason\Source\Repos\GroupPlaylistShuffler\bin\Debug\ConsoleApplication.pdb
-C:\Users\jason\Source\Repos\GroupPlaylistShuffler\obj\x86\Debug\GroupPlaylistShuffler.csproj.AssemblyReference.cache
-C:\Users\jason\Source\Repos\GroupPlaylistShuffler\obj\x86\Debug\GroupPlaylistShuffler.csproj.SuggestedBindingRedirects.cache
-C:\Users\jason\Source\Repos\GroupPlaylistShuffler\obj\x86\Debug\GroupPlaylistShuffler.csproj.CoreCompileInputs.cache
-C:\Users\jason\Source\Repos\GroupPlaylistShuffler\obj\x86\Debug\ConsoleApplication.exe
-C:\Users\jason\Source\Repos\GroupPlaylistShuffler\obj\x86\Debug\ConsoleApplication.pdb
