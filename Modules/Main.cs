@@ -29,9 +29,7 @@ namespace GroupPlaylistShuffler
                 /* File names can alternatively be hardcoded here.
                 Will throw a divide-by-0 exception if no args or elements are provided
                 */
-                textFiles = new string[] {
-
-        };
+                textFiles = new string[] {};
             }
 
             List<string> playlist = new List<string>();
@@ -128,11 +126,15 @@ namespace GroupPlaylistShuffler
         /// </param>
         public static string[] DistributePlaylist(List<string> input, int totalUsers)
         {
-            int totalSongs = input.Count;
-            int songsPerUser = totalSongs / totalUsers;
+            if (totalUsers < 1)
+            {
+                return null;
+            }
 
+            int totalSongs = input.Count;
             string[] output = new string[totalSongs];
 
+            int songsPerUser = totalSongs / totalUsers;
             /* Assign each song from a user's list to an index based on the formula:
             Index = U + N * S,
             where
@@ -175,6 +177,11 @@ namespace GroupPlaylistShuffler
         /// </param>
         public static string[] ShufflePlaylist(string[] input, int totalUsers)
         {
+            if (totalUsers < 1)
+            {
+                return null;
+            }
+
             string[] output = new string[input.Length];
             int songsPerUser = input.Length / totalUsers;
 
