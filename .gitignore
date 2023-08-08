@@ -2,4 +2,6 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs/GroupPlaylistShuffler/FileContentIndex/3c261170-9e3c-4c01-aa27-cecfc470489a.vsidx
+/.vs/
+/bin/
+/obj/
