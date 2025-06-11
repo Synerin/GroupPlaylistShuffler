@@ -11,51 +11,41 @@ namespace GroupPlaylistShuffler
             // Keep track of most songs in one file
             int max = 0;
 
+            string binDir = Directory.GetCurrentDirectory();
+            string playlistDir = Path.Combine(binDir, "../../UserPlaylists");
+
+            string[] textFiles = Directory.GetFiles(playlistDir, "*.txt");
+
             // Files containing a list of x songs
-            string[] textFiles;
-
-            if (args.Length > 0)
-            {
-                // Read command line arguments for file names
-                textFiles = new string[args.Length];
-
-                for (int i = 0; i < args.Length; i++)
-                {
-                    textFiles[i] = args[i];
-                }
-            }
-            else
-            {
-                /* File names can alternatively be hardcoded here.
-                Will throw a divide-by-0 exception if no args or elements are provided
-                */
-                textFiles = new string[] {};
-            }
-
-            List<string> playlist = new List<string>();
+            Playlist unifiedPlaylist = new Playlist("Playlist.txt");
 
             foreach (string file in textFiles)
             {
-                string[] songs = Read(file); // Get all songs in a given file
-                string[] shuffled = Playlist.Shuffle(songs); // Shuffle the songs from said file
+                string[] songArray = Read(file); // Get all songs in a given file
+                List<Song> songList = new List<Song>();
 
-                // Add each song (in shuffled order) to the list
-                foreach (string song in shuffled)
+                foreach (string listedSong in songArray)
                 {
-                    playlist.Add(song);
+                    Song song = Song.ProcessSong(listedSong);
+                    songList.Add(song);
                 }
 
-                max = Math.Max(max, songs.Length); // Calculate max
+                Playlist localPlaylist = new Playlist(songList);
+                localPlaylist.Shuffle(); // Shuffle the songs from said file
+
+                max = Math.Max(max, songArray.Length); // Calculate max
+
+                unifiedPlaylist.AddSongs(localPlaylist.Songs); // Add to unified playlist
             }
 
             // Distribute songs evenly in ABC...ABC... order
-            string[] distributedPlaylist = Playlist.DistributePlaylist(playlist, textFiles.Length);
+            unifiedPlaylist.DistributePlaylist(textFiles.Length);
 
             // Shuffle each distributed grouping of N songs for random equality
-            string[] finalPlaylist = Playlist.ShufflePlaylist(distributedPlaylist, textFiles.Length);
+            Playlist finalPlaylist = Playlist.ShuffleSections(unifiedPlaylist.Songs, textFiles.Length);
 
             // Print finalized playlist to console for confirmation
-            foreach (string song in finalPlaylist)
+            foreach (Song song in finalPlaylist.Songs)
             {
                 Console.WriteLine(song);
             }
@@ -63,10 +53,10 @@ namespace GroupPlaylistShuffler
             /* For translating into an actual playlist,
             I recommend https://www.tunemymusic.com/
             */
-            string newFile = "Playlist.txt";
+            string newPlaylistFile = Path.Combine(binDir, "../../CreatedPlaylists/Playlist.txt");
 
             // Create or overwrite Playlist.txt as needed, add all songs
-            File.WriteAllLines(newFile, finalPlaylist);
+            File.WriteAllLines(newPlaylistFile, finalPlaylist.FormatForWriting());
         }
 
         /// <summary>

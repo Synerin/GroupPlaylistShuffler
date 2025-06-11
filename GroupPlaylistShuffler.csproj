@@ -84,11 +84,18 @@
     <Compile Include="Modules\Main.cs" />
     <Compile Include="Modules\Playlist.cs" />
     <Compile Include="Modules\Song.cs" />
+    <Content Include="UserPlaylists\Ajnos.txt" />
+    <Content Include="UserPlaylists\Sonja.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".git\objects\info\" />
     <Folder Include=".git\refs\tags\" />
     <Folder Include=".vs\GroupPlaylistShuffler\FileContentIndex\merges\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="UserPlaylists\Nosaj.txt" />
+    <Content Include="UserPlaylists\Jason.txt" />
+    <Content Include="CreatedPlaylists\Playlist.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

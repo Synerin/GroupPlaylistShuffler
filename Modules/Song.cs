@@ -1,3 +1,5 @@
+using System;
+
 namespace GroupPlaylistShuffler
 {
     public class Song
@@ -11,6 +13,21 @@ namespace GroupPlaylistShuffler
             this.Artist = artist;
         }
 
+        public override string ToString()
+        {
+            return $"{this.SongName} by {this.Artist}";
+        }
 
+        public static Song ProcessSong(string nameAndArtist)
+        {
+            string[] splitValues = nameAndArtist.Split(new string[] { " by " }, StringSplitOptions.None);
+
+            if (splitValues.Length != 2)
+            {
+                return null;
+            }
+
+            return new Song(splitValues[0], splitValues[1]);
+        }
     }
 }
