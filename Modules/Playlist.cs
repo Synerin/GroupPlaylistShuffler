@@ -10,6 +10,12 @@ namespace GroupPlaylistShuffler
         public string PlaylistName { get; set; }
         public List<Song> Songs { get; set; }
 
+        public Playlist()
+        {
+            this.PlaylistName = "Playlist";
+            this.Songs = new List<Song>();
+        }
+
         public Playlist(string PlaylistName)
         {
             this.PlaylistName = PlaylistName;
@@ -177,6 +183,11 @@ namespace GroupPlaylistShuffler
             Playlist outputPlaylist = new Playlist(output);
 
             return outputPlaylist;
+        }
+
+        public static Playlist ShuffleSections(Playlist playlist, int totalUsers)
+        {
+            return ShuffleSections(playlist.Songs, totalUsers);
         }
 
         public string[] FormatForWriting()

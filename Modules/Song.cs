@@ -20,7 +20,7 @@ namespace GroupPlaylistShuffler
 
         public static Song ProcessSong(string nameAndArtist)
         {
-            string[] splitValues = nameAndArtist.Split(new string[] { " by " }, StringSplitOptions.None);
+            string[] splitValues = nameAndArtist.Split(new string[] { "," }, StringSplitOptions.None);
 
             if (splitValues.Length != 2)
             {
