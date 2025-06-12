@@ -1,7 +1,5 @@
 using System;
-using System.IO;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace GroupPlaylistShuffler
 {
@@ -9,6 +7,7 @@ namespace GroupPlaylistShuffler
     {
         public string PlaylistName { get; set; }
         public List<Song> Songs { get; set; }
+        private static readonly Random random = new Random();
 
         public Playlist()
         {
@@ -76,11 +75,10 @@ namespace GroupPlaylistShuffler
             List<Song> output = input;
 
             int n = input.Count;
-            Random rand = new Random(Guid.NewGuid().GetHashCode());
 
             while (n > 1)
             {
-                int k = rand.Next(n--);
+                int k = random.Next(n--);
 
                 // Cannot use tuple assignment for Random, must assign a temp variable
                 Song temp = input[n];
@@ -196,6 +194,11 @@ namespace GroupPlaylistShuffler
 
             for (int i = 0; i < this.Songs.Count; i++)
             {
+                if (Songs[i] == null)
+                {
+                    continue;
+                }
+
                 strings[i] = this.Songs[i].ToString();
             }
 

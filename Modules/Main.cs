@@ -13,6 +13,7 @@ namespace GroupPlaylistShuffler
 
             string binDir = Directory.GetCurrentDirectory();
             string playlistDir = Path.Combine(binDir, "../../UserPlaylists");
+            string createdPlaylistDir = Path.Combine(binDir, "../../CreatedPlaylists");
 
             string[] textFiles = Directory.GetFiles(playlistDir);
 
@@ -22,24 +23,29 @@ namespace GroupPlaylistShuffler
 
             foreach (string file in textFiles)
             {
+                // Get the name of the .txt file
+                string fileName = Path.GetFileName(file);
+
                 string[] songArray = Read(file);
                 List<Song> songList = new List<Song>();
 
                 foreach (string listedSong in songArray)
                 {
-                    Song song = Song.ProcessSong(listedSong);
+                    Song song = Song.ProcessSong($"[{fileName}] --- {listedSong}");
+
                     songList.Add(song);
                 }
 
                 Playlist localPlaylist = new Playlist(songList);
                 localPlaylist.Shuffle();
 
-                userPlaylists.TryGetValue(textFiles.Length, out Playlist playListN);
+                userPlaylists.TryGetValue(songList.Count, out Playlist playListN);
 
                 if (playListN == null)
                 {
                     playListN = new Playlist($"Playlist{localPlaylist.Songs.Count}");
-                    userPlaylists.Add(textFiles.Length, playListN);
+                    playListN.AddSongs(localPlaylist);
+                    userPlaylists.Add(localPlaylist.Songs.Count, playListN);
                 }
                 else
                 {
@@ -60,11 +66,18 @@ namespace GroupPlaylistShuffler
                 
                 Playlist shuffledPlaylistX = Playlist.ShuffleSections(playlistX, users);
 
-                unifiedPlaylist.AddSongs(playlistX);
+                Write(playlistDir, shuffledPlaylistX);
+
+                unifiedPlaylist.AddSongs(shuffledPlaylistX);
             }
 
+            Write(createdPlaylistDir, unifiedPlaylist);
+        }
+
+        public static void Write(string destination, Playlist playlistToWrite)
+        {
             // Print finalized playlist to console for confirmation
-            foreach (Song song in unifiedPlaylist.Songs)
+            foreach (Song song in playlistToWrite.Songs)
             {
                 Console.WriteLine(song);
             }
@@ -72,10 +85,10 @@ namespace GroupPlaylistShuffler
             /* For translating into an actual playlist,
             I recommend https://www.tunemymusic.com/
             */
-            string newPlaylistFile = Path.Combine(binDir, $"../../CreatedPlaylists/{unifiedPlaylist.PlaylistName}.txt");
+            string newPlaylistFile = Path.Combine(destination, $"{playlistToWrite.PlaylistName}.txt");
 
             // Create or overwrite Playlist.txt as needed, add all songs
-            File.WriteAllLines(newPlaylistFile, unifiedPlaylist.FormatForWriting());
+            File.WriteAllLines(newPlaylistFile, playlistToWrite.FormatForWriting());
         }
 
         /// <summary>
